@@ -54,7 +54,7 @@ def get_nutritional_info(food_name, portion):
 
 
 def get_recipe_suggestions(missing_nutrient):
-    url = f"https://api.spoonacular.com/recipes/complexSearch?query={missing_nutrient}&apiKey={'3dc691de6ec44157af3a539494fcb1d1'}"
+    url = f"https://api.spoonacular.com/recipes/complexSearch?query={missing_nutrient}&apiKey={recipe_api_key}"
     response = requests.get(url)
     if response.status_code == 200:
         return response.json()
