@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Suggestions</title>
+    <style>
+        body{
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        h1{
+            background-color: black;
+            color: white; 
+        }
+        .results {
+            text-align: center;
+            font-size: medium;
+            background-color: black;
+            color: white;  
+        }
+        .results pre{
+            font-size: 1.2em; 
+            font-family: Arial, sans-serif; 
+            padding: 10px; 
+            margin: 10px; 
+            border: 1px solid white
+        }
+    
+
+    </style>    
+</head>
+<body>
+    <h1>Recipe Suggestions</h1>
+    <div class = "results">
+        {% if results %}
+            <pre>{{ results }}</pre>
+        {% else %}
+            <p>All nutrient goals are met for today! Great job!</p>
+        {% endif %}
+    </div>
+</body>
+</html>

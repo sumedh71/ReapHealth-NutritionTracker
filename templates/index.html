@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en"> 
+    <head> 
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ReapHealth</title>
+        <style>
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        header {
+            text-align: center; 
+            color: white; 
+            background-size: cover; 
+            background-position: center; 
+            padding: 25px; 
+            background-image: url('static/images/healthy-foods-on-a-table.jpg');
+         
+        }
+        .button {
+            display: inline-block;
+            background-color: black;
+            text-align: center;
+            color: white;
+            border-radius: 5px; 
+            margin: 50px; 
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+       
+        .button:hover{
+            background-color: red; 
+        }
+        .goals {
+            text-align: center; 
+            background-color: rgb(143, 38, 0); 
+            color: white; 
+            padding: 20px; 
+        }
+        .custom_goals {
+            text-align: left;
+        }
+        .food {
+            text-align: center; 
+            background-color: rgb(207, 33, 33);
+            color: white;
+            padding: 15px; 
+        }
+        .list {
+            text-align: left; 
+            background-color: beige;
+            color: black; 
+            padding: 15px; 
+        }
+        nav {
+            text-align: center;
+            padding: 10px; 
+        }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Welcome to ReapHealth!</h1>
+            <h2>Your all-in-one stop for nutrition tracking, recommendations and more!</h2>
+            <nav> 
+                <a href="/visualize_progress" class = "button">Visualize Progress</a> 
+                <a href="/get_recipes" class = "button">Get Recipe Suggestions</a> 
+            </nav>
+            <p>Instructions for use: Set your daily nutrition goals below, and then simply
+                enter the foods you've consumed, either manually or automatically! Be sure 
+                to set your goals first! 
+            </p>
+        </header>   
+        <section class="goals">
+            <h3>Set Nutrition Goals</h3>
+            <form method="POST" action="{{ url_for('get_goals') }}">
+                <label>
+                    <input type="radio" name="use_default" value="yes" checked id="use_default">
+                    Use default goals
+                </label>
+                <br>
+                <label>
+                    <input type="radio" name="use_default" value="no" id="use_custom">
+                    Set custom goals
+                </label>
+                <div class="custom-goals">
+                    <label>
+                        Calorie Goal (kcal):
+                        <input type="number" name="calories" min="0" step="1">
+                    </label>
+                    <br>
+                    <label>
+                        Protein Goal (g):
+                        <input type="number" name="protein" min="0" step="1">
+                    </label>
+                    <br>
+                    <label>
+                        Fat Goal (g):
+                        <input type="number" name="fat" min="0" step="1">
+                    </label>
+                    <br>
+                    <label>
+                        Carbohydrates Goal (g):
+                        <input type="number" name="carbs" min="0" step="1">
+                    </label>
+                </div>
+                <br>
+                <button type="submit">Save Goals</button>
+            </form>
+        </section>   
+        <section class="food">
+            <h3>Log Food Manually</h3>
+            <form action="/add_food_manual" method="POST"> 
+                <input type="text" name="name" placeholder="Food Name" required> 
+                <input type="number" name="calories" placeholder="Calories (kcal)" required> 
+                <input type="number" name="protein" placeholder="Protein (g)" required> 
+                <input type="number" name="fat" placeholder="Fat (g)" required> 
+                <input type="number" name="carbs" placeholder="Carbs (g)" required> 
+                <button type="submit">Add</button> 
+            </form> 
+        </section>
+        <section class="food"> 
+            <h3>Log Food Automatically</h3> 
+            <form action="/add_food_auto" method="POST"> 
+                <input type="text" name="name" placeholder="Food Name" required> 
+                <input type="text" name="portion" placeholder="Portion (e.g., 1 cup)" required> 
+                <button type="submit">Add</button> 
+            </form> 
+        </section> 
+        <section class="list"> 
+            <h3>Foods Added Today:</h3> 
+            <ul> {% for food in food_today %} 
+                <li>{{ food.name }} - {{ food.calories }} kcal, {{ food.protein }} g protein, {{ food.fat }} g fat, {{ food.carbs }} g carbs</li> 
+                {% endfor %} 
+            </ul> 
+        </section>
+    </body>
+</html>
